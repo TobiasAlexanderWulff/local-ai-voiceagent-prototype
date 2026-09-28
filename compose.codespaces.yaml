@@ -1,6 +1,10 @@
 services:
 
   agent:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - LLM_SERVICE_URL=http://host.docker.internal:8001
     build:
       context: ./services/agent
     ports:
@@ -21,6 +25,8 @@ services:
       - model-cache:/models
 
   llm:
+    ports:
+      - "8001:8000"
     build:
       context: ./services/llm
     volumes:

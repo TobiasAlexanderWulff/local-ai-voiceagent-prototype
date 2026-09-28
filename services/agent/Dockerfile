@@ -12,4 +12,4 @@ COPY . .
 
 RUN uv sync --locked
 
-CMD ["uv", "run", "python", "src/main.py"]
+CMD ["uv", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
