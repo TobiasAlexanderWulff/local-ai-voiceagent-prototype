@@ -1,0 +1,34 @@
+services:
+
+  agent:
+    build: ./services/agent
+    volumes:
+      - ./workspace:/workspace
+      - ./config:/config
+    depends_on:
+      - stt
+      - llm
+      - tts
+
+  stt:
+    build: ./services/stt
+    volumes:
+      - model-cache:/models
+
+  llm:
+    build: ./services/llm
+    volumes:
+      - model-cache:/models
+
+  tts:
+    build: ./services/tts
+    volumes:
+      - model-cache:/models
+
+  ui:
+    build: ./services/ui
+    depends_on:
+      - agent
+
+volumes:
+  model-cache:
